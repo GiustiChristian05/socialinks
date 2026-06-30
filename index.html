@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Christian Giusti | SAP ABAP Developer</title>
+
+<meta name="description" content="SAP ABAP Developer - Automation, Integration, Enterprise Solutions">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#050816;
+--card:rgba(255,255,255,0.06);
+--text:#ffffff;
+--muted:rgba(255,255,255,0.7);
+--accent:#7c3aed;
+--border:rgba(255,255,255,0.12);
+}
+
+body.light{
+--bg:#f4f6fb;
+--card:rgba(0,0,0,0.05);
+--text:#0f172a;
+--muted:rgba(15,23,42,0.7);
+--accent:#4f46e5;
+--border:rgba(0,0,0,0.1);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter",sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:var(--bg);
+color:var(--text);
+overflow:hidden;
+}
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+z-index:0;
+}
+
+/* CARD */
+.card{
+position:relative;
+z-index:1;
+width:100%;
+max-width:460px;
+padding:30px;
+border-radius:22px;
+background:var(--card);
+backdrop-filter: blur(18px);
+border:1px solid var(--border);
+box-shadow:0 30px 80px rgba(0,0,0,0.5);
+text-align:center;
+}
+
+/* PROFILE */
+img.profile{
+width:150px;
+height:150px;
+border-radius:50%;
+border:2px solid var(--accent);
+margin-bottom:12px;
+object-fit:cover;
+}
+
+h1{font-size:26px;font-weight:700;}
+.subtitle{font-size:14px;color:var(--muted);margin-bottom:10px;}
+
+.bio{
+margin:18px 0;
+font-style:italic;
+color:var(--muted);
+min-height:24px;
+}
+
+.cursor{animation:blink 0.8s infinite;}
+@keyframes blink{50%{opacity:0}}
+
+/* LINKS */
+.links{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-top:15px;
+}
+
+.links a{
+display:flex;
+align-items:center;
+gap:10px;
+
+text-decoration:none;
+padding:13px;
+border-radius:14px;
+color:var(--text);
+background:rgba(255,255,255,0.04);
+border:1px solid var(--border);
+transition:0.25s;
+font-weight:500;
+}
+
+.links a:hover{
+transform:translateY(-4px);
+border-color:var(--accent);
+box-shadow:0 10px 25px rgba(124,58,237,0.25);
+}
+
+.links img{
+width:18px;
+height:18px;
+}
+
+/* TOPBAR */
+.topbar{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+button{
+background:none;
+border:1px solid var(--border);
+color:var(--text);
+padding:6px 10px;
+border-radius:10px;
+cursor:pointer;
+font-size:12px;
+}
+
+/* FOOTER */
+footer{
+margin-top:18px;
+font-size:11px;
+color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="card">
+
+<img class="profile" src="foto.jpg" alt="profile">
+
+<h1>Christian Giusti</h1>
+<div class="subtitle">SAP ABAP Developer</div>
+
+<div class="bio">
+<span id="typing"></span><span class="cursor">|</span>
+</div>
+
+<div class="links">
+
+<a href="https://instagram.com/giustichristian_" target="_blank">
+<img src="https://cdn.simpleicons.org/instagram/ffffff">
+Instagram
+</a>
+
+<a href="https://www.linkedin.com/in/christian-giusti-226708323/" target="_blank">
+<img src="https://www.unife.it/it/notizie/newsletter/loghi-social/linkedin-white.png/@@images/image.png">
+LinkedIn
+</a>
+
+<a href="https://github.com/GiustiChristian05" target="_blank">
+<img src="https://cdn.simpleicons.org/github/ffffff">
+GitHub
+</a>
+
+<a href="mailto:personal@email.com">
+<img src="https://cdn.simpleicons.org/gmail/ffffff">
+Email personale
+</a>
+
+<a href="mailto:work@company.com">
+<img src="https://img.icons8.com/androidL/512/FFFFFF/ms-outlook.png">
+Email lavoro
+</a>
+
+<a href="Giusti Christian CV.pdf" download>
+📄 Scarica CV
+</a>
+
+</div>
+
+<footer>© 2026 Christian Giusti</footer>
+
+</div>
+
+<script>
+/* typing */
+const text="Building solutions, one line of code at a time.";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i++);
+setTimeout(type,40);
+}
+}
+type();
+
+/* theme */
+function toggleTheme(){
+document.body.classList.toggle("light");
+localStorage.setItem("theme",
+document.body.classList.contains("light")?"light":"dark");
+}
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+}
+
+/* particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let p=[];
+for(let i=0;i<70;i++){
+p.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+dx:(Math.random()-0.5)*0.4,
+dy:(Math.random()-0.5)*0.4
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+p.forEach(o=>{
+o.x+=o.dx;o.y+=o.dy;
+if(o.x<0)o.x=canvas.width;
+if(o.x>canvas.width)o.x=0;
+if(o.y<0)o.y=canvas.height;
+if(o.y>canvas.height)o.y=0;
+
+ctx.beginPath();
+ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
+ctx.fillStyle="rgba(255,255,255,0.5)";
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
